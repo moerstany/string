@@ -9,80 +9,100 @@ class String
 	int size;	//Размер строки в Байтах
 	char* str;	//Указатель на строку в динамической памяти
 public:
-	int get_size()const
-	{
-		return size;
-	}
+	int get_size()const;
 	/* v возвращает константный указатель (нельзя изменить значение по адресу)*/
-	const char* get_str()const//Показывает что это константный метод
-	{
-		return str;
-	}
-	char* get_str()
-	{
-		return str;
-	}
+	const char* get_str()const;
+	char* get_str();
 	//			Constructors:
-	explicit String(int size = 80):size(size),str(new char[size]{})//список инициализаций
-
-	{
-		//this->size = size;
-		//this->str = new char[size] {};
-		cout << (size==80 ? "Default" : "Size") <<"Constructor:\t" << this << endl;
-	}
-	 String(const char str[]):String(strlen(str)+1)
-	{
-		//this->size = strlen(str) + 1;
-		//this->str = new char[size] {};
-		for (int i = 0; str[i]; i++)
-			this->str[i] = str[i];
-		cout << "Constructor:\t\t" << this << endl;
-	}
-	 String(const String& other):String(other.str)
-	{
-		//this->size = other.size;
-		//this->str = new char[size] {};
-		//for (int i = 0; i < size; i++)
-			//this->str[i] = other.str[i];
-		cout << "CopyConstructor:\t" << this << endl;
-	}
-	~String()
-	{
-		delete[] this->str;
-		cout << "Destructor:\t\t" << this << endl;
-	}
-	String(String&& other):size(other.size),str(other.str)
-	{
-		//this->size = other.size;
-		//this->str = other.str;
-		other.str = nullptr;//это указатель на 0
-		cout << "Moveconstructor:\t\t" << this << endl;
-	}
+	explicit String(int size = 80);
+	String(const char str[]);
+	String(const String& other);
+	
+	~String();
+	String(String&& other);
 	//			Operators:
-	String& operator=(const String& other)
-	{
-		if (this == &other)return *this;
-		delete[] this->str;
-		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
-			this->str[i] = other.str[i];
-		cout << "CopyAssignment:\t\t" << this << endl;
-		return *this;
-	}
-
-	String& operator+=(const String& other)
-	{
-		return *this = *this + other;
-	}
-
+	String& operator=(const String& other);
+	String& operator+=(const String& other);
 	//			Methods:
-	void print() const
-	{
-		cout << "size:\t" << size << endl;
-		cout << "str:\t" << str << endl;
-	}
+	
+	void print() const;
 };
+
+
+int String::get_size()const
+{
+	return size;
+}
+/* v возвращает константный указатель (нельзя изменить значение по адресу)*/
+const char* String::get_str()const//Показывает что это константный метод
+{
+	return str;
+}
+char* String::get_str()
+{
+	return str;
+}
+//			Constructors:
+String::String(int size) :size(size), str(new char[size] {})//список инициализаций
+
+{
+	//this->size = size;
+	//this->str = new char[size] {};
+	cout << (size == 80 ? "Default" : "Size") << "Constructor:\t" << this << endl;
+}
+String::String(const char str[]) :String(strlen(str) + 1)
+{
+	//this->size = strlen(str) + 1;
+	//this->str = new char[size] {};
+	for (int i = 0; str[i]; i++)
+		this->str[i] = str[i];
+	cout << "Constructor:\t\t" << this << endl;
+}
+String::String(const String& other) :String(other.str)
+{
+	//this->size = other.size;
+	//this->str = new char[size] {};
+	//for (int i = 0; i < size; i++)
+		//this->str[i] = other.str[i];
+	cout << "CopyConstructor:\t" << this << endl;
+}
+String::~String()
+{
+	delete[] this->str;
+	cout << "Destructor:\t\t" << this << endl;
+}
+String::String(String&& other) :size(other.size), str(other.str)
+{
+	//this->size = other.size;
+	//this->str = other.str;
+	other.str = nullptr;//это указатель на 0
+	cout << "Moveconstructor:\t\t" << this << endl;
+}
+//			Operators:
+String& String::operator=(const String& other)
+{
+	if (this == &other)return *this;
+	delete[] this->str;
+	this->size = other.size;
+	this->str = new char[size] {};
+	for (int i = 0; i < size; i++)
+		this->str[i] = other.str[i];
+	cout << "CopyAssignment:\t\t" << this << endl;
+	return *this;
+}
+
+String& String::operator+=(const String& other)
+{
+	return *this = *this + other;
+}
+
+//			Methods:
+void String::print() const
+{
+	cout << "size:\t" << size << endl;
+	cout << "str:\t" << str << endl;
+}
+
 
 ostream& operator<<(ostream& os, const String& obj)
 {
@@ -143,9 +163,9 @@ void main()
 	cout << delimiter << endl;
 	cout << str1 << endl;
 
-	String str3 = str1; //Copy constructor
-	String str4;
-	str4 = str2; 
-	String str4 = str3;
-	cout << str4 << endl;
+	//String str3 = str1; //Copy constructor
+	//String str4;
+	//str4 = str2; 
+	//String str4 = str3;
+	//cout << str4 << endl;
 }
